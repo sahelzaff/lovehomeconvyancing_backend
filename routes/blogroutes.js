@@ -91,3 +91,7 @@ router.get('/:id', async (req, res) => {
 });
 
 export default router;
+
+
+
+//fixed the blogs routes problem,
