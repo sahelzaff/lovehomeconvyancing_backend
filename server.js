@@ -9,7 +9,7 @@ import { connectDB } from './config/db.js';
 // Import routes
 import formRoutes from './routes/formRoutes.js';
 import leadsRoutes from './routes/leadsRoutes.js';
-import blogRoutes from './routes/blogRoutes.js';
+// import blogRoutes from './routes/blogRoutes.js';
 import googleRoutes from './routes/googleRoutes.js';
 import emailRoutes from './routes/emailRoutes.js';
 
@@ -29,7 +29,7 @@ connectDB();
 // Routes
 app.use('/api/form', formRoutes);
 app.use('/api/lead-cal', leadsRoutes);
-app.use('/api/blogs', blogRoutes);
+// app.use('/api/blogs', blogRoutes);
 app.use('/api/google', googleRoutes);
 app.use('/api/email', emailRoutes);
 
