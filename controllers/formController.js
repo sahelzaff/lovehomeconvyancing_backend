@@ -11,11 +11,21 @@ export const submitForm = async (req, res) => {
     }
 };
 
-// Controller to retrieve form data
+// Controller to retrieve all form data
 export const getFormData = async (req, res) => {
     try {
         const forms = await formModel.find();
         res.status(200).send(forms);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
+
+// Controller to retrieve leads (optional, if different logic is needed)
+export const getLeads = async (req, res) => {
+    try {
+        const leads = await formModel.find();
+        res.status(200).send(leads);
     } catch (error) {
         res.status(500).send(error);
     }
