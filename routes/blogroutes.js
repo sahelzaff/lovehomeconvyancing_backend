@@ -1,4 +1,3 @@
-// blogRoutes.js
 import express from 'express';
 import multer from 'multer';
 import path from 'path';
@@ -73,7 +72,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-
+// Fetch a specific blog by ID and increment views
 router.get('/:id', async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
@@ -90,4 +89,5 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 export default router;
