@@ -11,7 +11,7 @@ import formRoutes from './routes/formRoutes.js';
 import leadsRoutes from './routes/leadsRoutes.js';
 import blogRoutes from './routes/blogRoutes.js';
 import googleRoutes from './routes/googleRoutes.js';
-import emailRoutes from './routes/emailRoutes.js';
+// import emailRoutes from './routes/emailRoutes.js';
 
 // App config
 dotenv.config();
@@ -31,7 +31,7 @@ app.use('/api/form', formRoutes);
 app.use('/api/lead-cal', leadsRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/google', googleRoutes);
-app.use('/api/email', emailRoutes);
+// app.use('/api/email', emailRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -40,5 +40,5 @@ app.get('/', (req, res) => {
 
 // Start server
 app.listen(port, () => {
-    console.log(`Server running on port http://localhost:${port}`);
+    console.log(`Server running on port https://lovehomeconvyancingbackend-production.up.railway.app/${port}`);
 });
