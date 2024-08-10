@@ -11,7 +11,7 @@ import formRoutes from './routes/formRoutes.js';
 import leadsRoutes from './routes/leadsRoutes.js';
 import blogRoutes from './routes/blogRoutes.js';
 import googleRoutes from './routes/googleRoutes.js';
-// import emailRoutes from './routes/emailRoutes.js';
+import emailRoutes from './routes/emailRoutes.js'; // <-- New Email Routes
 
 // App config
 dotenv.config();
@@ -31,7 +31,7 @@ app.use('/api/form', formRoutes);
 app.use('/api/lead-cal', leadsRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/google', googleRoutes);
-// app.use('/api/email', emailRoutes);
+app.use('/api/email', emailRoutes); // <-- New Email Route
 
 // Root endpoint
 app.get('/', (req, res) => {
