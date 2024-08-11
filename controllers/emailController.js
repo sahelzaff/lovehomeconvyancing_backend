@@ -447,7 +447,7 @@ export const sendQuotationEmail = async (userEmail, userName, pdfPath) => {
     try {
 
         const info = await transporter.sendMail(mailOptions);
-        console.log('Email Has Been Sent: %s', info.messageId);
+        console.log(`Email Has Been Sent to ${userName} on ${userEmail}: %s`, info.messageId);
     } catch (error) {
 
         console.error('Error sending email:', error);
