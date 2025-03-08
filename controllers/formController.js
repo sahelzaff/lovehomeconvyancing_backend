@@ -1,32 +1,67 @@
-import formModel from "../models/formmodel.js";
+import formmodel from '../models/formmodel.js';
+import fetch from 'node-fetch';
 
-// Controller to handle form submission
+const RECAPTCHA_SECRET_KEY = '6LfaqO0qAAAAAKsE0sMNB82k8RPty9Db8zuIdjEb';
+
+// Verify reCAPTCHA token
+const verifyRecaptcha = async (token) => {
+  try {
+    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `secret=${RECAPTCHA_SECRET_KEY}&response=${token}`,
+    });
+
+    const data = await response.json();
+    return data.success;
+  } catch (error) {
+    console.error('reCAPTCHA verification error:', error);
+    return false;
+  }
+};
+
+// Submit form controller
 export const submitForm = async (req, res) => {
-    try {
-        const newForm = new formModel(req.body);
-        await newForm.save();
-        res.status(201).send(newForm);
-    } catch (error) {
-        res.status(400).send(error);
+  try {
+    const { recaptchaToken, ...formData } = req.body;
+
+    // Verify reCAPTCHA token
+    const isVerified = await verifyRecaptcha(recaptchaToken);
+    if (!isVerified) {
+      return res.status(400).json({ message: 'reCAPTCHA verification failed' });
     }
+
+    // Create new form entry
+    const newForm = new formmodel(formData);
+    await newForm.save();
+
+    res.status(201).json({ message: 'Form submitted successfully' });
+  } catch (error) {
+    console.error('Form submission error:', error);
+    res.status(500).json({ message: 'Error submitting form', error: error.message });
+  }
 };
 
-// Controller to retrieve all form data
+// Get form data controller
 export const getFormData = async (req, res) => {
-    try {
-        const forms = await formModel.find();
-        res.status(200).send(forms);
-    } catch (error) {
-        res.status(500).send(error);
-    }
+  try {
+    const forms = await formmodel.find();
+    res.status(200).json(forms);
+  } catch (error) {
+    console.error('Error fetching form data:', error);
+    res.status(500).json({ message: 'Error fetching form data', error: error.message });
+  }
 };
 
-// Controller to retrieve leads (optional, if different logic is needed)
+// Get leads count
 export const getLeads = async (req, res) => {
-    try {
-        const leads = await formModel.find();
-        res.status(200).send(leads);
-    } catch (error) {
-        res.status(500).send(error);
-    }
+  try {
+    const count = await formmodel.countDocuments();
+    res.status(200).json({ count });
+  } catch (error) {
+    console.error('Error counting leads:', error);
+    res.status(500).json({ message: 'Error counting leads', error: error.message });
+  }
 };

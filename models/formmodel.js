@@ -21,9 +21,12 @@ const formSchema = new mongoose.Schema({
     message: {
         type: String,
         required: true
+    },
+    recaptchaToken: {
+        type: String,
+        required: true
     }
 });
-
 
 const formmodel = mongoose.models.form || mongoose.model("form", formSchema);
 
